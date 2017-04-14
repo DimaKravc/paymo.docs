@@ -4,7 +4,7 @@ import {BrowserRouter as Link, Route, NavLink} from 'react-router-dom';
 const ALIASES = {
     "/payments": "Проведение платежей",
     "/pay24": "PAY24",
-    "/cards": "БАНКОВСКИЕ КАРТЫ",
+    "/cards": "Банковские карты",
     "/qr-get-started": "Возможности платежного метода",
     "/qr-connect": "Проведение платежа",
     "/qr-status": "Метод получения статуса платежа",

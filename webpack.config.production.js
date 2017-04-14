@@ -3,6 +3,12 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
+let devFlagPlugin = new webpack.DefinePlugin({
+    'process.env': {
+        NODE_ENV: JSON.stringify('production')
+    }
+});
+
 const extractSass = new ExtractTextPlugin({
     filename: "/css/[name].css"
 });
@@ -67,6 +73,7 @@ module.exports = {
     },
     plugins: [
         extractSass,
-        uglifyJS
+        uglifyJS,
+        devFlagPlugin
     ]
 };

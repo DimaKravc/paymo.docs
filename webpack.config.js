@@ -1,10 +1,5 @@
 const {resolve} = require('path');
 const webpack = require('webpack');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-
-let devFlagPlugin = new webpack.DefinePlugin({
-  __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false'))
-});
 
 module.exports = {
     context: resolve(__dirname, 'src'),
@@ -37,7 +32,6 @@ module.exports = {
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NamedModulesPlugin(),
-        devFlagPlugin
+        new webpack.NamedModulesPlugin()
     ]
 };
