@@ -47,15 +47,15 @@ export default (e) => {
                         <span className="b-code-snippet__item">
                             <pre>
                                 <code>
-                                    import hmac<br/>
-                                    from hashlib import <span className="b-code-snippet__chunk--blue">sha1</span><br/>
-                                    import <span className="b-code-snippet__chunk--blue">base64</span><br/>
-                                    <span>&nbsp;</span><br/>
-                                    hashed = hmac.new(<span className="b-code-snippet__chunk--blue">crypto_key</span>.encode(), str(<span className="b-code-snippet__chunk--blue">prep.body</span>).encode(), sha1)<br/>
-                                    x-signature = base64.b64encode(hashed.digest()).decode().rsplit(&quot;&quot;)[0]<br/>
-                                    headers = &#123;<br/>
-                                    &emsp;&emsp;&quot;X-Signature&quot;: x-signature,<br/>
-                                    &#125;<br/>
+                                    import hmac{'\n'}
+                                    from hashlib import <span className="b-code-snippet__chunk--blue">sha1</span>{'\n'}
+                                    import <span className="b-code-snippet__chunk--blue">base64</span>{'\n'}
+                                    <span>&nbsp;</span>{'\n'}
+                                    hashed = hmac.new(<span className="b-code-snippet__chunk--blue">crypto_key</span>.encode(), str(<span className="b-code-snippet__chunk--blue">prep.body</span>).encode(), sha1){'\n'}
+                                    x-signature = base64.b64encode(hashed.digest()).decode().rsplit(&quot;&quot;)[0]{'\n'}
+                                    headers = &#123;{'\n'}
+                                    &emsp;&emsp;&quot;X-Signature&quot;: x-signature,{'\n'}
+                                    &#125;{'\n'}
                                 </code>
                             </pre>
                         </span>
@@ -291,11 +291,11 @@ export default (e) => {
                         <span className="b-code-snippet__item">
                             <pre>
                                 <code>
-                                    &lt;form action=&quot;&lt;<span className="b-code-snippet__chunk--dark">acsUrl</span>&gt;&quot; method=&quot;POST&quot;&gt;<br/>
-                                    &lt;input type=&quot;hidden&quot; name=&quot;<span className="b-code-snippet__chunk--dark">MD</span>&quot; value=&quot;&lt;MD&gt;&quot;&gt;<br/>
-                                    &lt;input type=&quot;hidden&quot; name=&quot;<span className="b-code-snippet__chunk--dark">PaReq</span>&quot; value=&quot;&lt;paReq&gt;&quot;&gt;<br/>
-                                    &lt;input type=&quot;hidden&quot; name=&quot;<span className="b-code-snippet__chunk--dark">TermUrl</span>&quot; value=&quot;&lt;termUrl&gt;&quot;&gt;<br/>
-                                    &lt;input type=&quot;submit&quot;&gt;<br/>
+                                    &lt;form action=&quot;&lt;<span className="b-code-snippet__chunk--dark">acsUrl</span>&gt;&quot; method=&quot;POST&quot;&gt;{'\n'}
+                                    &lt;input type=&quot;hidden&quot; name=&quot;<span className="b-code-snippet__chunk--dark">MD</span>&quot; value=&quot;&lt;MD&gt;&quot;&gt;{'\n'}
+                                    &lt;input type=&quot;hidden&quot; name=&quot;<span className="b-code-snippet__chunk--dark">PaReq</span>&quot; value=&quot;&lt;paReq&gt;&quot;&gt;{'\n'}
+                                    &lt;input type=&quot;hidden&quot; name=&quot;<span className="b-code-snippet__chunk--dark">TermUrl</span>&quot; value=&quot;&lt;termUrl&gt;&quot;&gt;{'\n'}
+                                    &lt;input type=&quot;submit&quot;&gt;{'\n'}
                                     &lt;/form&gt;
                                 </code>
                             </pre>
@@ -392,11 +392,11 @@ export default (e) => {
                     <div className="b-code-snippet__row">
                         <span className="b-code-snippet__item">
                             <pre>
-                                <code>result': &#123;<br/>
-                                    &emsp;&emsp;'code': &lt;код ответа&gt;,<br/>
-                                    &emsp;&emsp;'auth_code': &lt;код авторизации в случае_успеха&gt;,<br/>
-                                    &emsp;&emsp;'amount': &lt;сумма платежа в копейках&gt;,<br/>
-                                    &emsp;&emsp;'message': &lt;текст_ответа&gt;,<br/>
+                                <code>result': &#123;{'\n'}
+                                    &emsp;&emsp;'code': &lt;код ответа&gt;,{'\n'}
+                                    &emsp;&emsp;'auth_code': &lt;код авторизации в случае_успеха&gt;,{'\n'}
+                                    &emsp;&emsp;'amount': &lt;сумма платежа в копейках&gt;,{'\n'}
+                                    &emsp;&emsp;'message': &lt;текст_ответа&gt;,{'\n'}
                                 &#125;</code>
                             </pre>
                         </span>

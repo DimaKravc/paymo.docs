@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
-let devFlagPlugin = new webpack.DefinePlugin({
+const devFlagPlugin = new webpack.DefinePlugin({
     'process.env': {
         NODE_ENV: JSON.stringify('production')
     }
@@ -22,6 +22,7 @@ const uglifyJS = new UglifyJSPlugin({
 module.exports = {
     context: resolve(__dirname, 'src'),
     entry: {
+        index: './index.html',
         bundle: './index.js',
         styles: './sass/index.scss'
     },
@@ -32,13 +33,16 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.html$/,
+                loader: "file-loader",
+                options: {
+                    name: "[name].[ext]"
+                }
+            },
+            {
                 test: /\.js?$/,
                 use: ['babel-loader'],
                 exclude: /node_modules/
-            },
-            {
-                test: /\.html$/,
-                use: ['html-loader']
             },
             {
                 test: /\.scss$/,
@@ -55,7 +59,8 @@ module.exports = {
                 })
             },
             {
-                test: /\.(eot|ttf|woff|woff2)$/,
+                test: /\.(eot|ttf|woff|woff2|svg)$/,
+                include: resolve(__dirname, "src/fonts/"),
                 loader: 'url-loader',
                 options: {
                     limit: 10000,
@@ -64,6 +69,10 @@ module.exports = {
             },
             {
                 test: /\.(png|jpg|gif|svg)$/,
+                include: [
+                    resolve(__dirname, "src/img/"),
+                    resolve(__dirname, "src/svg/")
+                ],
                 loader: 'file-loader',
                 options: {
                     name: "/img/[name].[ext]"

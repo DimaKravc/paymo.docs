@@ -36,14 +36,14 @@ export default (e) => {
                         <span className="b-code-snippet__item">
                             <pre>
                                 <code>
-                                    import hmac<br/>
-                                    from hashlib import <span className="b-code-snippet__chunk--blue">sha1</span><br/>
-                                    import <span className="b-code-snippet__chunk--blue">base64</span><br/>
-                                    <span>&nbsp;</span><br/>
-                                    hashed = hmac.new(<span className="b-code-snippet__chunk--blue">crypto_key</span>.encode(), str(<span className="b-code-snippet__chunk--blue">prep.body</span>).encode(), sha1)<br/>
-                                    x-signature = base64.b64encode(hashed.digest()).decode().rsplit(&quot;&quot;)[0]<br/>
-                                    headers = &#123;<br/>
-                                    &emsp;&emsp;&quot;X-Signature&quot;: x-signature,<br/>
+                                    import hmac{'\n'}
+                                    from hashlib import <span className="b-code-snippet__chunk--blue">sha1</span>{'\n'}
+                                    import <span className="b-code-snippet__chunk--blue">base64</span>{'\n'}
+                                    <span>&nbsp;</span>{'\n'}
+                                    hashed = hmac.new(<span className="b-code-snippet__chunk--blue">crypto_key</span>.encode(), str(<span className="b-code-snippet__chunk--blue">prep.body</span>).encode(), sha1){'\n'}
+                                    x-signature = base64.b64encode(hashed.digest()).decode().rsplit(&quot;&quot;)[0]{'\n'}
+                                    headers = &#123;{'\n'}
+                                    &emsp;&emsp;&quot;X-Signature&quot;: x-signature,{'\n'}
                                     &#125;
                                 </code>
                             </pre>
@@ -120,40 +120,40 @@ export default (e) => {
                         <span className="b-code-snippet__item">
                             <pre>
                                 <code>
-                                    from requests import Request, Session<br/>
-                                    from hashlib import md5, sha1<br/>
-                                    import <span className="b-code-snippet__chunk--blue">base64</span><br/>
-                                    import <span className="b-code-snippet__chunk--blue">hmac</span><br/>
-                                    from decimal import Decimal<br/>
-                                    import uuid<br/>
-                                    <br/>
-                                    s = Session()<br/>
-                                    <span className="b-code-snippet__chunk--blue">crypto_key</span> = 'TEST'<br/>
-                                    <span className="b-code-snippet__chunk--blue">api_key</span> = '3fd47e05-8e7c-4e58-8fbb-9af08926d995'<br/>
-                                    <br/>
-                                    def check_payment(data):<br/>
-                                    &quot;&quot;&quot;Проверка статуса платежа&quot;&quot;&quot;<br/>
-                                    # Это URL по которому мы стучимся чтобы узнать статус платежа<br/>
-                                    url = 'https://paymo.ru/rest/v2/unipayment/check_status/'<br/>
-                                    <br/>
-                                    # Тут мы формируем данные для запроса<br/>
-                                    v_data = &#123;<br/>
-                                    &emsp;&emsp;'<span className="b-code-snippet__chunk--blue">api_key</span>': data['api_key'],<br/>
-                                    &emsp;&emsp;'<span className="b-code-snippet__chunk--blue">pmnt_id</span>': data['pmnt_id'],<br/>
-                                    &emsp;&emsp;'<span className="b-code-snippet__chunk--blue">payment_method</span>': data['payment_method'],<br/>
+                                    from requests import Request, Session{'\n'}
+                                    from hashlib import md5, sha1{'\n'}
+                                    import <span className="b-code-snippet__chunk--blue">base64</span>{'\n'}
+                                    import <span className="b-code-snippet__chunk--blue">hmac</span>{'\n'}
+                                    from decimal import Decimal{'\n'}
+                                    import uuid{'\n'}
+                                    {'\n'}
+                                    s = Session(){'\n'}
+                                    <span className="b-code-snippet__chunk--blue">crypto_key</span> = 'TEST'{'\n'}
+                                    <span className="b-code-snippet__chunk--blue">api_key</span> = '3fd47e05-8e7c-4e58-8fbb-9af08926d995'{'\n'}
+                                    {'\n'}
+                                    def check_payment(data):{'\n'}
+                                    &quot;&quot;&quot;Проверка статуса платежа&quot;&quot;&quot;{'\n'}
+                                    # Это URL по которому мы стучимся чтобы узнать статус платежа{'\n'}
+                                    url = 'https://paymo.ru/rest/v2/unipayment/check_status/'{'\n'}
+                                    {'\n'}
+                                    # Тут мы формируем данные для запроса{'\n'}
+                                    v_data = &#123;{'\n'}
+                                    &emsp;&emsp;'<span className="b-code-snippet__chunk--blue">api_key</span>': data['api_key'],{'\n'}
+                                    &emsp;&emsp;'<span className="b-code-snippet__chunk--blue">pmnt_id</span>': data['pmnt_id'],{'\n'}
+                                    &emsp;&emsp;'<span className="b-code-snippet__chunk--blue">payment_method</span>': data['payment_method'],{'\n'}
                                     &#125;
-                                    <br/>
-                                    r = Request('POST', url, json=v_data, headers={})<br/>
-                                    prep = r.prepare()<br/>
-                                    <span>&nbsp;</span><br/>
-                                    # Тут высчитываем X-SIGNATURE и добавляем его в заголовок запроса<br/>
-                                    hashed = hmac.new(crypto_key.encode(), str(prep.body).encode(), sha1)<br/>
-                                    prep.headers[<br/>
-                                    &emsp;&emsp;'X-SIGNATURE'] = base64.b64encode(hashed.digest()).decode().rsplit(&quot;&quot;)[0]<br/>
-                                    <br/>
-                                    # А теперь запрос отправляем<br/>
-                                    resp = s.send(prep)<br/>
-                                    print('Check payment status response:', resp.text)<br/>
+                                    {'\n'}
+                                    r = Request('POST', url, json=v_data, headers={}){'\n'}
+                                    prep = r.prepare(){'\n'}
+                                    <span>&nbsp;</span>{'\n'}
+                                    # Тут высчитываем X-SIGNATURE и добавляем его в заголовок запроса{'\n'}
+                                    hashed = hmac.new(crypto_key.encode(), str(prep.body).encode(), sha1){'\n'}
+                                    prep.headers[{'\n'}
+                                    &emsp;&emsp;'X-SIGNATURE'] = base64.b64encode(hashed.digest()).decode().rsplit(&quot;&quot;)[0]{'\n'}
+                                    {'\n'}
+                                    # А теперь запрос отправляем{'\n'}
+                                    resp = s.send(prep){'\n'}
+                                    print('Check payment status response:', resp.text){'\n'}
                                     return
                                 </code>
                             </pre>

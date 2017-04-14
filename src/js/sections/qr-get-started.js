@@ -1,6 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Link, Route, NavLink } from 'react-router-dom';
 import Breadcrumbs from '../containers/Breadcrumbs';
+import StarIcon from '../../svg/star.svg';
+import Phone1Img from '../../img/phone-1.png';
+import Phone2Img from '../../img/phone-2.png';
 
 export default (e) => {
     return (
@@ -39,10 +42,10 @@ export default (e) => {
             <div className="b-phone-manual">
                 <ul className="b-list">
                     <div className="b-list__item-wrap b-list__item-wrap--inline"><span className="b-list__item-round">1</span>
-                        <li className="b-list__item b-list__item--plain b-list__item--uppercase b-list__item--va-top">Наведите телефон на QR-код</li><img src="/img/phone-1.png" className="b-phone-manual__image"/>
+                        <li className="b-list__item b-list__item--plain b-list__item--uppercase b-list__item--va-top">Наведите телефон на QR-код</li><img src={Phone1Img} className="b-phone-manual__image"/>
                     </div>
                     <div className="b-list__item-wrap b-list__item-wrap--inline"><span className="b-list__item-round">2</span>
-                        <li className="b-list__item b-list__item--plain b-list__item--uppercase b-list__item--va-top">подтвердите операцию оплаты</li><img src="/img/phone-2.png" className="b-phone-manual__image"/>
+                        <li className="b-list__item b-list__item--plain b-list__item--uppercase b-list__item--va-top">подтвердите операцию оплаты</li><img src={Phone2Img} className="b-phone-manual__image"/>
                     </div>
                 </ul>
             </div>
@@ -50,10 +53,10 @@ export default (e) => {
                 <h2 className="b-title-h2__elem">Преимущества решения</h2>
             </div>
             <ul className="b-list">
-                <div className="b-list__item-wrap"><img src="/img/star.svg" className="b-list__item-style"/>
+                <div className="b-list__item-wrap"><img src={StarIcon} className="b-list__item-style"/>
                     <li className="b-list__item">Плательщику не нужно вводить данные карты при оплате</li>
                 </div>
-                <div className="b-list__item-wrap"><img src="/img/star.svg" className="b-list__item-style"/>
+                <div className="b-list__item-wrap"><img src={StarIcon} className="b-list__item-style"/>
                     <li className="b-list__item">На сегодняшний день оплата через QR-код — самая безопасная технология совершения платежей</li>
                 </div>
             </ul>

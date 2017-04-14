@@ -41,14 +41,14 @@ export default (e) => {
                         <span className="b-code-snippet__item">
                             <pre>
                                 <code>
-                                import hmac<br/>
-                                from hashlib import <span className="b-code-snippet__chunk--blue">sha1</span><br/>
-                                import <span className="b-code-snippet__chunk--blue">base64</span><br/>
-                                <br/>
-                                hashed = hmac.new(<span className="b-code-snippet__chunk--blue">crypto_key</span>.encode(), str(<span className="b-code-snippet__chunk--blue">prep.body</span>).encode(), sha1)<br/>
-                                x-signature = base64.b64encode(hashed.digest()).decode().rsplit(&quot;\n&quot;)[0]<br/>
-                                headers = &#123;<br/>
-                                    &emsp;&emsp;&quot;X-Signature&quot;: x-signature,<br/>
+                                import hmac{'\n'}
+                                from hashlib import <span className="b-code-snippet__chunk--blue">sha1</span>{'\n'}
+                                import <span className="b-code-snippet__chunk--blue">base64</span>{'\n'}
+                                    {'\n'}
+                                hashed = hmac.new(<span className="b-code-snippet__chunk--blue">crypto_key</span>.encode(), str(<span className="b-code-snippet__chunk--blue">prep.body</span>).encode(), sha1){'\n'}
+                                x-signature = base64.b64encode(hashed.digest()).decode().rsplit(&quot;\n&quot;)[0]{'\n'}
+                                headers = &#123;{'\n'}
+                                    &emsp;&emsp;&quot;X-Signature&quot;: x-signature,{'\n'}
                                     &#125;
                                 </code>
                             </pre>
@@ -152,8 +152,8 @@ export default (e) => {
                         <span className="b-code-snippet__item">
                             <pre>
                                 <code>
-                                    n_amount = int(Decimal(str(data['amount'])) * 100)<br/>
-                                    <br/>
+                                    n_amount = int(Decimal(str(data['amount'])) * 100){'\n'}
+                                    {'\n'}
                                     data['hash_sum'] = md5(''.join([str(n_amount),crypto_key]).encode()).hexdigest()
                                 </code>
                             </pre>
@@ -199,50 +199,50 @@ export default (e) => {
                         <span className="b-code-snippet__item">
                             <pre>
                                 <code>
-                                    from requests import Request, Session<br/>
-                                    from hashlib import md5, sha1<br/>
-                                    import <span className="b-code-snippet__chunk--blue">base64</span><br/>
-                                    import <span className="b-code-snippet__chunk--blue">hmac</span><br/>
-                                    from decimal import Decimal<br/>
-                                    import uuid<br/>
-                                    <br/>
-                                    s = Session()<br/>
-                                    <span className="b-code-snippet__chunk--blue">crypto_key</span> = 'TEST'<br/>
-                                    <span className="b-code-snippet__chunk--blue">api_key</span> = '3fd47e05-8e7c-4e58-8fbb-9af08926d995'<br/>
-                                    <span>nbsp;</span><br/>
-                                    def make_payment_data(payment_method):<br/>
-                                    &emsp;&emsp;&quot;&quot;&quot;Создаем данные для платежа&quot;&quot;&quot;<br/>
-                                    &emsp;&emsp;data = &#123;<br/>
-                                    &emsp;&emsp;'<span className="b-code-snippet__chunk--blue">api_key</span>': api_key,<br/>
-                                    &emsp;&emsp;'<span className="b-code-snippet__chunk--blue">transaction_id</span>': str(uuid.uuid4()),<br/>
-                                    &emsp;&emsp;'oferta': '1',<br/>
-                                    &emsp;&emsp;'<span className="b-code-snippet__chunk--blue">amount</span>': '100',<br/>
-                                    &emsp;&emsp;'pan': '4111111111111111',<br/>
-                                    &emsp;&emsp;'expire': '1218',<br/>
-                                    &emsp;&emsp;'cvc': '234',<br/>
-                                    &emsp;&emsp;'<span className="b-code-snippet__chunk--blue">mobile_phone</span>': '79017909173',<br/>
-                                    &emsp;&emsp;'<span className="b-code-snippet__chunk--blue">payment_method</span>': payment_method,<br/>
-                                    &emsp;&emsp;'custom_data': &#123;'something': 'else'&#125;,<br/>
-                                    &emsp;&emsp;'description': 'description'<br/>
-                                    &emsp;&emsp;&#125;<br/>
-                                    &emsp;&emsp;return data<br/>
-                                    <br/>
-                                    def make_payment(data):<br/>
-                                    &emsp;&emsp;&quot;&quot;&quot;Проводим платеж&quot;&quot;&quot;<br/>
-                                    &emsp;&emsp;<span className="b-code-snippet__chunk--blue"># Это URL по которому мы стучимся в API чтобы провести платеж</span><br/>
-                                    &emsp;&emsp;url = '<span className="b-code-snippet__chunk--blue">http://testgate4.paymo.ru/rest/v2/unipayment/</span>'<br/>
-                                    &emsp;&emsp;<span className="b-code-snippet__chunk--blue"># Тут мы добавляем в данные платежа hash_sum</span><br/>
-                                    &emsp;&emsp;n_amount = int(Decimal(str(data['<span className="b-code-snippet__chunk--blue">amount</span>'])) * 100)<br/>
-                                    &emsp;&emsp;data['hash_sum'] = md5(''.join([str(n_amount), crypto_key]).encode()).hexdigest()<br/>
-                                    &emsp;&emsp;r = Request('POST', url, json=data, headers={})<br/>
-                                    &emsp;&emsp;prep = r.prepare()<br/>
-                                    &emsp;&emsp;<span style={{"color": "#737b91"}}># Высчитывается X-SIGNATURE и добавляется в заголовок запроса</span><br/>
-                                    &emsp;&emsp;hashed = hmac.new(<span className="b-code-snippet__chunk--blue">crypto_key</span>.encode(), str(prep.body).encode(), sha1)<br/>
-                                    &emsp;&emsp;prep.headers['X-SIGNATURE'] = base64.b64encode(hashed.digest()).decode().rsplit(&quot;\n&quot;)[0]<br/>
-                                    &emsp;&emsp;<span style={{"color": "#737b91"}}># Далее передается запрос</span><br/>
-                                    &emsp;&emsp;resp = s.send(prep)<br/>
-                                    &emsp;&emsp;print('Make payment response:', resp.text)<br/>
-                                    &emsp;&emsp;return<br/>
+                                    from requests import Request, Session{'\n'}
+                                    from hashlib import md5, sha1{'\n'}
+                                    import <span className="b-code-snippet__chunk--blue">base64</span>{'\n'}
+                                    import <span className="b-code-snippet__chunk--blue">hmac</span>{'\n'}
+                                    from decimal import Decimal{'\n'}
+                                    import uuid{'\n'}
+                                    {'\n'}
+                                    s = Session(){'\n'}
+                                    <span className="b-code-snippet__chunk--blue">crypto_key</span> = 'TEST'{'\n'}
+                                    <span className="b-code-snippet__chunk--blue">api_key</span> = '3fd47e05-8e7c-4e58-8fbb-9af08926d995'{'\n'}
+                                    <span>nbsp;</span>{'\n'}
+                                    def make_payment_data(payment_method):{'\n'}
+                                    &emsp;&emsp;&quot;&quot;&quot;Создаем данные для платежа&quot;&quot;&quot;{'\n'}
+                                    &emsp;&emsp;data = &#123;{'\n'}
+                                    &emsp;&emsp;'<span className="b-code-snippet__chunk--blue">api_key</span>': api_key,{'\n'}
+                                    &emsp;&emsp;'<span className="b-code-snippet__chunk--blue">transaction_id</span>': str(uuid.uuid4()),{'\n'}
+                                    &emsp;&emsp;'oferta': '1',{'\n'}
+                                    &emsp;&emsp;'<span className="b-code-snippet__chunk--blue">amount</span>': '100',{'\n'}
+                                    &emsp;&emsp;'pan': '4111111111111111',{'\n'}
+                                    &emsp;&emsp;'expire': '1218',{'\n'}
+                                    &emsp;&emsp;'cvc': '234',{'\n'}
+                                    &emsp;&emsp;'<span className="b-code-snippet__chunk--blue">mobile_phone</span>': '79017909173',{'\n'}
+                                    &emsp;&emsp;'<span className="b-code-snippet__chunk--blue">payment_method</span>': payment_method,{'\n'}
+                                    &emsp;&emsp;'custom_data': &#123;'something': 'else'&#125;,{'\n'}
+                                    &emsp;&emsp;'description': 'description'{'\n'}
+                                    &emsp;&emsp;&#125;{'\n'}
+                                    &emsp;&emsp;return data{'\n'}
+                                    {'\n'}
+                                    def make_payment(data):{'\n'}
+                                    &emsp;&emsp;&quot;&quot;&quot;Проводим платеж&quot;&quot;&quot;{'\n'}
+                                    &emsp;&emsp;<span className="b-code-snippet__chunk--blue"># Это URL по которому мы стучимся в API чтобы провести платеж</span>{'\n'}
+                                    &emsp;&emsp;url = '<span className="b-code-snippet__chunk--blue">http://testgate4.paymo.ru/rest/v2/unipayment/</span>'{'\n'}
+                                    &emsp;&emsp;<span className="b-code-snippet__chunk--blue"># Тут мы добавляем в данные платежа hash_sum</span>{'\n'}
+                                    &emsp;&emsp;n_amount = int(Decimal(str(data['<span className="b-code-snippet__chunk--blue">amount</span>'])) * 100){'\n'}
+                                    &emsp;&emsp;data['hash_sum'] = md5(''.join([str(n_amount), crypto_key]).encode()).hexdigest(){'\n'}
+                                    &emsp;&emsp;r = Request('POST', url, json=data, headers={}){'\n'}
+                                    &emsp;&emsp;prep = r.prepare(){'\n'}
+                                    &emsp;&emsp;<span style={{"color": "#737b91"}}># Высчитывается X-SIGNATURE и добавляется в заголовок запроса</span>{'\n'}
+                                    &emsp;&emsp;hashed = hmac.new(<span className="b-code-snippet__chunk--blue">crypto_key</span>.encode(), str(prep.body).encode(), sha1){'\n'}
+                                    &emsp;&emsp;prep.headers['X-SIGNATURE'] = base64.b64encode(hashed.digest()).decode().rsplit(&quot;\n&quot;)[0]{'\n'}
+                                    &emsp;&emsp;<span style={{"color": "#737b91"}}># Далее передается запрос</span>{'\n'}
+                                    &emsp;&emsp;resp = s.send(prep){'\n'}
+                                    &emsp;&emsp;print('Make payment response:', resp.text){'\n'}
+                                    &emsp;&emsp;return{'\n'}
                                 </code>
                             </pre>
                         </span>

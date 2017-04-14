@@ -84,7 +84,7 @@ export default (e) => {
                         <span className="b-code-snippet__item">
                             <pre>
                                 <code>
-                                    &#123;&quot;api_key&quot;: &quot;3fd47e05-8e7n-4e5-78-8fbb-9af08926d995&quot;, &quot;transaction_id&quot;: &quot;198&quot;, &quot;amount&quot;: 100,<br/>
+                                    &#123;&quot;api_key&quot;: &quot;3fd47e05-8e7n-4e5-78-8fbb-9af08926d995&quot;, &quot;transaction_id&quot;: &quot;198&quot;, &quot;amount&quot;: 100,{'\n'}
                                     &quot;signature&quot;: &quot;oi3rf3ijfioejfoeirjf&quot;&#125;
                                 </code>
                             </pre>
