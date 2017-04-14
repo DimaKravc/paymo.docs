@@ -1,0 +1,138 @@
+.b-menu {
+  position: fixed;
+  float: left;
+  width: $widthMenu;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: $paleGreyTwo;
+}
+
+.menu-close {
+  display: none;
+}
+
+.menu-close__image {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+.navigation__first {
+  /*margin: 20px 0;*/
+  line-height: 0.7;
+}
+
+.navigation__first-link {
+  letter-spacing: 0.4px;
+  @include font-size(16px, $LatoBold, $dark, 18px);
+  text-decoration: none;
+}
+
+.navigation__second {
+  margin: 15px 0;
+  line-height: 0.3;
+}
+
+.navigation__second-link {
+  letter-spacing: 0.2px;
+  @include font-size(13px, $LatoRegular, $blueGrey, 1.38);
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.navigation__second-wrap {
+  margin: 19px 0px 19px 15px;
+}
+
+.navigation__third {
+  margin: 15px 0;
+  line-height: 0.3;
+}
+
+.navigation__third-link {
+  letter-spacing: 0.2px;
+  @include font-size(13px, $LatoRegular, $dark, 1.38);
+  text-decoration: none;
+}
+
+.navigation__third-link.active + .navigation__forth-wrap {
+  display: block;
+}
+
+.navigation__third-wrap {
+  margin: 19px 0px 19px 15px;
+  display: none;
+}
+
+.navigation__forth {
+  margin: 15px 0;
+  line-height: 0.3;
+}
+
+.navigation__forth-link {
+  letter-spacing: 0.2px;
+  @include font-size(12px, $LatoRegular, $blueGrey, 1.38);
+  text-decoration: none;
+}
+
+.navigation__forth-wrap {
+  margin: 19px 0px 19px 15px;
+  display: none;
+}
+
+.menu__logo {
+  display: inline-block;
+}
+
+/* modificators */
+.menu__logo--indentation {
+  margin: 32px 0 65px 96px;
+}
+
+.navigation--indentation {
+  padding: 0 75px 0 112px;
+}
+
+/* media */
+@media (max-width: 1024px) {
+  .b-menu {
+    width: 300px;
+  }
+
+  .navigation--indentation {
+    padding: 0 50px;
+  }
+
+  .menu__logo--indentation {
+    margin-left: 50px;
+  }
+}
+
+@media (max-width: 800px) {
+  .b-menu {
+    display: none;
+  }
+
+  .b-menu.b-menu--active {
+    display: block;
+    width: 292px;
+    z-index: 100;
+
+    .menu__logo {
+      display: none;
+    }
+
+    .menu-close {
+      display: inline-block;
+    }
+
+    .menu-close--indentation {
+      padding: 21px 0 16px 24px;
+    }
+  }
+
+  .navigation--indentation {
+    padding: 0 24px;
+  }
+}

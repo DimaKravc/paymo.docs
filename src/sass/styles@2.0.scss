@@ -1,0 +1,19 @@
+.navigation__third-wrap {
+    display: none;
+}
+
+.active.navigation__second-link {
+    + .navigation__third-wrap {
+        display: block;
+    }
+}
+
+.navigation__forth-wrap {
+    display: none;
+}
+
+.active.navigation__third-link {
+    + .navigation__forth-wrap {
+        display: block;
+    }
+}

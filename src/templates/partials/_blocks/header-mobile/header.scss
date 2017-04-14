@@ -1,0 +1,36 @@
+.b-header-mobile {
+  display: none;
+  font-size: 0;
+}
+
+.b-header-mobile--indentation {
+  margin-bottom: 18px;
+}
+
+.b-header-mobile__left, .b-header-mobile__right {
+  display: inline-block;
+  width: 50%;
+  vertical-align: top;
+}
+
+.b-header-mobile__right {
+  text-align: right;
+}
+
+.b-burger {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+/* modificators */
+.menu__logo-image--small {
+  width: 64px;
+  height: 25px;
+}
+
+@media (max-width: 800px) {
+  .b-header-mobile {
+    display: block;
+  }
+}

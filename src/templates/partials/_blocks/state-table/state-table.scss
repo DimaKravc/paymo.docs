@@ -1,0 +1,62 @@
+.b-state-table {
+  max-width: 688px;
+  width: 100%;
+  overflow: hidden;
+  overflow-x: auto;
+  background-color: $lightBlue;
+}
+
+.b-state-table-wrap {
+  width: 688px;
+  padding: 13px 24px;
+}
+
+.b-state-table__row {
+  padding: 11px 24px 12px 23px;
+  font-size: 0;
+}
+
+.b-state-table__row:not(:last-child) {
+  border-bottom: 1px solid #e6e9f1;
+}
+
+// columns
+.b-state-table__col {
+  @include font-size(13px, $LatoRegular, $dark, 1.54);
+  display: inline-block;
+  vertical-align: top;
+}
+
+.b-state-table__col:not(:last-child) {
+  margin-right: 16px;
+}
+
+
+/* modificators */
+
+.b-state-table__col--name {
+  text-transform: uppercase;
+  line-height: 20px;
+  font-size: 11px;
+  width: 128px;
+}
+
+.b-state-table__col--description {
+  width: 448px;
+}
+
+.b-state-table--indentation {
+  margin: 8px 0 0px 0;
+}
+
+// media
+@media (max-width: 1200px) {
+  .b-state-table-wrap {
+    width: auto;
+    overflow-x: hidden;
+  }
+
+  .b-state-table__row {
+    padding: 11px 0 12px 0;
+  }
+}

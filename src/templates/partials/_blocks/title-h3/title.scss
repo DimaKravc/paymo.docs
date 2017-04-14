@@ -1,0 +1,19 @@
+.b-title-h3__elem {
+  @include font-size(16px, $LatoRegular, $dark, 1.2);
+}
+
+/* modificators */
+.b-title-h3--indentation {
+  margin: 24px 0 12px 32px;
+}
+
+.b-title-h3__elem--medium {
+  @include font-size(16px, $LatoMedium, $dark, 1.2);
+}
+
+/* media */
+@media (max-width: 800px) {
+  .b-title-h3--indentation {
+    margin-left: 0;
+  }
+}

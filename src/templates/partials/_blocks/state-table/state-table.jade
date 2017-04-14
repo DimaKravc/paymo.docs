@@ -1,0 +1,7 @@
+mixin state-table(items)
+  div.b-state-table
+    div.b-state-table-wrap
+      each item, i in items
+        div.b-state-table__row
+          div.b-state-table__col.b-state-table__col--name= item.name
+          div.b-state-table__col.b-state-table__col--description= item.description

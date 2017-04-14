@@ -1,0 +1,289 @@
+extends ../partials/layout
+include ../partials/_blocks/title-h1/title
+include ../partials/_blocks/title-h2/title
+include ../partials/_blocks/title-h3/title
+include ../partials/_blocks/caption/caption
+include ../partials/_blocks/label/label
+include ../partials/_blocks/text/text
+include ../partials/_blocks/link/link
+
+include ../partials/_blocks/api-table/api-table
+include ../partials/_blocks/state-table/state-table
+include ../partials/_blocks/code-snippet/code-snippet
+include ../partials/_blocks/code-snippet/textarea-snippet
+
+include ../partials/_blocks/list/list
+include ../partials/_blocks/command/command
+include ../partials/header
+include ../partials/_blocks/header-mobile/header
+include ../partials/footer
+
+
+block content
+    +headerModile()
+    +header([
+        {
+            name: "Проведение платежей"
+        },
+
+        {
+            name: "PAY24"
+        },
+
+        {
+            name: "Проведение платежа",
+            active: true
+        }
+    ])
+    +titleH1("Подключение<br> платежного метода PAY24")
+
+    +titleH2("Проведение платежа")
+
+    +text("Общение происходит POST запросом, данные пересылаются JSON-ом по адресу")
+    +link("http://testgate4.paymo.ru/rest/v2/unipayment/", "http://testgate4.paymo.ru/rest/v2/unipayment/")
+
+
+    +caption("Подпись")
+    +text("В headers запроса должна быть сформирована подпись (X-SIGNATURE). Расчет подписи происходит следующим образом:")
+    +list([
+        {
+            name: "Необходимо закодировать тело в формате JSON по ключу key, криптографической функцией хэширования - sha1 (HMAC-SHA1)"
+        },
+        {
+            name: "Результат кодирования закодировать в BASE64"
+        }
+    ], 'round')
+
+
+    +label("Пример на Python:")
+    div.b-code-snippet
+        div.b-code-snippet-wrap
+            div.b-code-snippet__row
+                span.b-code-snippet__item
+                    pre
+                        code
+                            | import hmac
+                            | from hashlib import <span class="b-code-snippet__chunk--blue">sha1</span>
+                            | import <span class="b-code-snippet__chunk--blue">base64</span>
+                            |<span></span>
+                            | hashed = hmac.new(<span class="b-code-snippet__chunk--blue">crypto_key</span>.encode(), str(<span class="b-code-snippet__chunk--blue">prep.body</span>).encode(), sha1)
+                            | x-signature = base64.b64encode(hashed.digest()).decode().rsplit(&quot;\n&quot;)[0]
+                            | headers = {
+                            |             &quot;X-Signature&quot;: x-signature,
+                            |           }
+                div.b-code-snippet__copy
+
+
+    +label("Параметры подписи")
+    +api-table([
+        {
+            name: "Параметр",
+            is_required: "Обязательный",
+            data_type: "Тип данных",
+            description: "Описание"
+        },
+        {
+            name: "crypto_key",
+            is_required: "да",
+            data_type: "строка",
+            description: "secret key (ключ шифрования merchant point). Его можно сгенерировать в настройках магазина в Личном кабинете (Раздел <span class='b-api-table__col--blue'>Магазины</span> → <span class='b-api-table__col--blue'>Настройки</span> → <span class='b-api-table__col--blue'>Технические настройки</span>)."
+        },
+        {
+            name: "prep.body",
+            is_required: "да",
+            data_type: "строка",
+            description: "Ключ терминала, через который проводится подключение к серверу."
+        }
+    ])
+
+
+    +caption("Тело запроса")(id="qr-connect-request")
+    +label("Параметры запроса")
+    +api-table([
+        {
+            name: "Параметр",
+            is_required: "Обязательный",
+            data_type: "Тип данных",
+            description: "Описание"
+        },
+        {
+            name: "api_key",
+            is_required: "да",
+            data_type: "строка",
+            description: "Идентификатор магазина в системе PAYMO. Указан в разделе <span class='b-api-table__col--blue'>Магазины</span> в Личном кабинете"
+        },
+        {
+            name: "amount",
+            is_required: "да",
+            data_type: "строка",
+            description: "Сумма первого платежа в копейках"
+        },
+        {
+            name: "transaction_id",
+            is_required: "да",
+            data_type: "строка",
+            description: "Номер транзакции в магазине. Может быть любым набором символов. Должен быть уникален в пределах выбранного api_key."
+        },
+        {
+            name: "payment_method",
+            is_required: "да",
+            data_type: "строка",
+            description: "Значением всегда должен быть \"vtbqr\""
+        },
+        {
+            name: "mobile_phone",
+            is_required: "да",
+            data_type: "строка",
+            description: "Номер телефона плательщика"
+        },
+        {
+            name: "is_mobile_device",
+            is_required: "да",
+            data_type: "строка",
+            description: "Должен принимать значение \"true\", если оплата происходит с мобильного девайса. False — если с компьютера. По умолчанию — false."
+        },
+        {
+            name: "signature",
+            is_required: "да",
+            data_type: "строка",
+            description: "Подпись платежной формы, сформированная с использованием «секретного ключа» (crypto_key) интернет-магазина. Crypto_key можно сгенерировать в настройках магазина в Личном кабинете (Раздел <span class='b-api-table__col--blue'>Магазины</span> → <span class='b-api-table__col--blue'>Настройки</span> → <span class='b-api-table__col--blue'>Общие</span>). Подпись формируется по алгоритму шифрования md5 с использованием следующих параметров: <br><br><span class='b-api-table__col--dark'>md5 (\"amount\"+\"crypto_key\")</span><br><br> <span class='b-api-table__col--italic'>! Этот параметр обеспечивает безопасность при прохождении платежа и целостность передаваемых данных, крайне рекомендован для использования. Корректное его составление гарантирует, что мошенник не сможет подделать какие-либо данные в операции оплаты.</span>"
+        }
+    ])
+
+
+
+    +caption("Пример запроса")
+    +label("Пример суммы платежа (?)")
+    div.b-code-snippet
+        div.b-code-snippet-wrap
+            div.b-code-snippet__row
+                span.b-code-snippet__item
+                    pre
+                        code
+                            |n_amount = int(Decimal(str(data['amount'])) * 100)
+                            |<span></span>
+                            |data['hash_sum'] = md5(''.join([str(n_amount),crypto_key]).encode()).hexdigest()
+                div.b-code-snippet__copy
+
+    +label("Параметры суммы платежа (?)")
+    +api-table([
+        {
+            name: "Параметр",
+            is_required: "Обязательный",
+            data_type: "Тип данных",
+            description: "Описание"
+        },
+        {
+            name: "data['amount']",
+            is_required: "да",
+            data_type: "строка",
+            description: "Сумма, которая передается в платеже"
+        },
+        {
+            name: "n_amount",
+            is_required: "да",
+            data_type: "строка",
+            description: "Сумма умноженная на 100"
+        },
+        {
+            name: "crypto_key",
+            is_required: "да",
+            data_type: "строка",
+            description: "Как и предыдущем случае, secret key (ключ шифрования). Его можно сгенерировать в настройках магазина в Личном кабинете (Раздел <span class='b-api-table__col--blue'>Магазины</span> → <span class='b-api-table__col--blue'>Настройки</span> → <span class='b-api-table__col--blue'>Технические настройки</span>)."
+        }
+    ])
+
+    div.b-code-snippet
+        div.b-code-snippet-wrap
+            div.b-code-snippet__row
+                span.b-code-snippet__item
+                    pre
+                        code
+                            | from requests import Request, Session
+                            | from hashlib import md5, sha1
+                            | import <span class="b-code-snippet__chunk--blue">base64</span>
+                            | import <span class="b-code-snippet__chunk--blue">hmac</span>
+                            | from decimal import Decimal
+                            | import uuid
+                            |<span></span>
+                            | s = Session()
+                            | <span class="b-code-snippet__chunk--blue">crypto_key</span> = 'TEST'
+                            | <span class="b-code-snippet__chunk--blue">api_key</span> = '3fd47e05-8e7c-4e58-8fbb-9af08926d995'
+                            |<span></span>
+                            | def make_payment_data(payment_method):
+                            |     &quot;&quot;&quot;Создаем данные для платежа&quot;&quot;&quot;
+                            |     data = {
+                            |     '<span class="b-code-snippet__chunk--blue">api_key</span>': api_key,
+                            |     '<span class="b-code-snippet__chunk--blue">transaction_id</span>': str(uuid.uuid4()),
+                            |     'oferta': '1',
+                            |     '<span class="b-code-snippet__chunk--blue">amount</span>': '100',
+                            |     'pan': '4111111111111111',
+                            |     'expire': '1218',
+                            |     'cvc': '234',
+                            |     '<span class="b-code-snippet__chunk--blue">mobile_phone</span>': '79017909173',
+                            |     '<span class="b-code-snippet__chunk--blue">payment_method</span>': payment_method,
+                            |     'custom_data': {'something': 'else'},
+                            |     'description': 'description'
+                            |     }
+                            |     return data
+                            |<span></span>
+                            | def make_payment(data):
+                            |     &quot;&quot;&quot;Проводим платеж&quot;&quot;&quot;
+                            |     <span class="b-code-snippet__chunk--blue"># Это URL по которому мы стучимся в API чтобы провести платеж</span>
+                            |     url = '<span class="b-code-snippet__chunk--blue">http://testgate4.paymo.ru/rest/v2/unipayment/</span>'
+                            |     <span class="b-code-snippet__chunk--blue"># Тут мы добавляем в данные платежа hash_sum</span>
+                            |     n_amount = int(Decimal(str(data['<span class="b-code-snippet__chunk--blue">amount</span>'])) * 100)
+                            |     data['hash_sum'] = md5(''.join([str(n_amount), crypto_key]).encode()).hexdigest()
+                            |     r = Request('POST', url, json=data, headers={})
+                            |     prep = r.prepare()
+                            |     <span style="color: #737b91"># Высчитывается X-SIGNATURE и добавляется в заголовок запроса</span>
+                            |     hashed = hmac.new(<span class="b-code-snippet__chunk--blue">crypto_key</span>.encode(), str(prep.body).encode(), sha1)
+                            |     prep.headers['X-SIGNATURE'] = base64.b64encode(hashed.digest()).decode().rsplit(&quot;\n&quot;)[0]
+                            |     <span style="color: #737b91"># Далее передается запрос</span>
+                            |     resp = s.send(prep)
+                            |     print('Make payment response:', resp.text)
+                            |     return
+                div.b-code-snippet__copy
+
+
+
+    +caption("Ответ")(id="qr-connect-response")
+
+    +label("Параметры ответа")
+    +api-table([
+        {
+            name: "Параметр",
+            is_required: "Обязательный",
+            data_type: "Тип данных",
+            description: "Описание"
+        },
+        {
+            name: "result",
+            is_required: "да",
+            data_type: "строка",
+            description: "Результат платежа, может принимать значения true и false"
+        },
+        {
+            name: "pmnt_id",
+            is_required: "да",
+            data_type: "строка",
+            description: "По данному идентификатору можно узнать статус платежа"
+        },
+        {
+            name: "transaction_id",
+            is_required: "да",
+            data_type: "строка",
+            description: "Номер транзакции в магазине. Может быть любым набором символов. Должен быть уникален в пределах выбранного api_key"
+        },
+        {
+            name: "qr_src",
+            is_required: "да",
+            data_type: "строка",
+            description: "Ссылка для генерации QR-кода, закодированная в base64, если при инициации платежа было отправлено \"is_mobile_device\": false<br><br> Вывести qr-код на экран можно так:<br><br> <span class='b-api-table__col--code'>&lt;img src=&#39;data:image/<br>png:base64.&#39;.qr_src.&#39;&quot; width = &quot;200&quot; height = &quot;200&quot;&gt;&#39;</span> <br><br>Или ссылка на оплату в мобильном приложении, если было отправлено \"is_mobile_device\": true при инициации платежа."
+        }
+    ])
+
+
+    +textareaSnippet()
+    +command("Метод получения статуса платежа")
+    +footer()

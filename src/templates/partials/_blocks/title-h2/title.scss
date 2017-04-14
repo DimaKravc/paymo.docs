@@ -1,0 +1,19 @@
+.b-title-h2__elem {
+  @include font-size(20px, $LatoMedium, $dark, 1.2);
+}
+
+/* modificators */
+.b-title-h2--indentation {
+  margin: 24px 0 12px 32px;
+}
+
+/* media */
+@media (max-width: 800px) {
+  .b-title-h2--indentation {
+    margin: 12px 0 12px 0;
+  }
+
+  .b-title-h2__elem {
+    @include font-size(16px, $LatoMedium, $dark, 1.2);
+  }
+}

@@ -1,0 +1,82 @@
+extends ../partials/layout
+include ../partials/_blocks/title-h1/title
+include ../partials/_blocks/title-h2/title
+include ../partials/_blocks/title-h3/title
+include ../partials/_blocks/text/text
+
+include ../partials/_blocks/phone-manual/phone-manual
+
+include ../partials/_blocks/list/list
+include ../partials/_blocks/command/command
+include ../partials/header
+include ../partials/_blocks/header-mobile/header
+include ../partials/footer
+
+
+block content
+    +headerModile()
+    +header([
+        {
+            name: "Проведение платежей"
+        },
+
+        {
+            name: "PAY24"
+        },
+
+        {
+            name: "Возможности платежного метода",
+            active: true
+        }
+    ])
+    +titleH1("Подключение<br> платежного метода PAY24")
+
+    +titleH2("Возможности платежного метода")
+
+
+    +text("PAY24 — инновационное платежное решение, которое позволяет клиентам банка ВТБ-24 оплатить товары и услуги с помощью сканирования QR кода.")
+    +text("Метод позволяет совершать платежи с помощью мобильного приложения PAY24:")
+    +list([
+        {
+            name: "на сайте (плательщик сканирует QR-код прямо на странице оплаты);"
+        },
+        {
+            name: "по коду в SMS (для совершения операции достаточно кликнуть на ссылку в платежном окне, которое откроется при оплате счета в SMS);"
+        },
+        {
+            name: "в бумажной квитанции (плательщик сканирует QR-код, указанный в квитанции, и оплачивает счет)."
+        }
+    ])
+
+    +titleH2("Подключение")(id="qr-get-started-connect")
+
+    +text("Для подключения данного метода необходимо зарегистрироваться в нашей системе, нажав на кнопку <a href='#' class='b-text--link'>Подключиться</a> на сайте <a href='http://paymo.ru' class='b-text--underline'>www.paymo.ru</a>.")
+    +text("После регистрации нужно заполнить все поля в окне <a href='#' class='b-text--link'>Добавление нового магазина</a>, таким образом в системе PAYMО будет создан уникальный merchant point.")
+    +text("Мы предлагаем широкие возможности для интеграции в любой платежный виджет.")
+
+    +titleH2("Как проводится оплата по QR-коду")
+
+    +phone-manual([
+        {
+            name: "Наведите телефон на QR-код"
+        },
+        {
+            name: "подтвердите операцию оплаты"
+        }
+    ])
+
+    +titleH2("Преимущества решения")
+
+    +list([
+        {
+            name: "Плательщику не нужно вводить данные карты при оплате"
+        },
+        {
+            name: "На сегодняшний день оплата через QR-код — самая безопасная технология совершения платежей"
+        }
+    ], "star")
+
+
+    +command("Как проводится оплата")
+
+    +footer()

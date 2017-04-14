@@ -1,0 +1,31 @@
+.b-text {
+  max-width: 654px;
+  @include font-size(13px, $LatoRegular, $dark, 20px);
+}
+
+/* modificators */
+
+.b-text--indentation {
+  margin: 12px 0 12px 32px;
+}
+
+.b-text--link {
+  text-decoration: none;
+  @include font-size(13px, $LatoBold, $darkBlue, 20px);
+}
+
+.b-text--underline {
+  text-decoration: underline;
+  @include font-size(13px, $LatoBold, $darkBlue, 20px);
+}
+
+/* media */
+@media (max-width: 800px) {
+  .b-text--indentation {
+    margin-left: 0;
+  }
+
+  .b-text {
+    @include font-size(11px, $LatoRegular, $dark, 20px);
+  }
+}

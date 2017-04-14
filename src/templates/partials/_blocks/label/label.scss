@@ -1,0 +1,22 @@
+.b-label {
+  max-width: 505px;
+}
+
+.b-label__elem {
+  @include font-size(11px, $LatoRegular, $dark, 1.82);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+/* modificators */
+.b-label--indentation {
+  margin: 16px 0 12px 32px;
+}
+
+/* media */
+@media (max-width: 800px) {
+  .b-label--indentation {
+    margin-top: 12px;
+    margin-left: 0;
+  }
+}

@@ -1,0 +1,7 @@
+mixin code-snippet(items)
+  div.b-code-snippet
+    div.b-code-snippet-wrap
+      each item, i in items
+        div.b-code-snippet__row
+          span.b-code-snippet__item= item
+          div.b-code-snippet__copy

@@ -1,0 +1,17 @@
+mixin list__item(items, image_type)
+  each item, i in items
+    div.b-list__item-wrap
+      if image_type === "star"
+         img.b-list__item-style(src="svg/star.svg")
+         li.b-list__item=item.name
+      else
+        if image_type === "round"
+           span.b-list__item-round= i + 1
+           li.b-list__item.b-list__item--plain.b-list__item--va-top=item.name
+        else
+          if image_type === "mobile"
+             span.b-list__item-round= i + 1
+             li.b-list__item.b-list__item--plain.b-list__item--uppercase.b-list__item--va-top=item.name
+              img(src="img/phone-1.jpg")
+          else
+             li.b-list__item.b-list__item--plain.b-list__item--list-item=item.name

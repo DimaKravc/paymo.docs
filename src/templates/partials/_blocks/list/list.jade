@@ -1,0 +1,14 @@
+include ./list__item
+include ./list__linked
+
+mixin list(items, image_type)
+  - image_type = typeof image_type != "undefined" ? image_type : ''
+
+    if image_type !== ''
+        ul.b-list
+          +list__item(items, image_type)
+          if image_type !== '' && image_type !== 'mobile' && image_type !== 'star'
+            +list__linked("Описание алгоритма: ", "http://tools.ietf.org/html/rfc2104.html")
+    else
+      ul.b-list.b-list--style-default
+        +list__item(items, image_type)

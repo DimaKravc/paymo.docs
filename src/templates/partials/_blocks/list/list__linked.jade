@@ -1,0 +1,6 @@
+include ../link/link
+
+mixin list__linked(text, link)
+  div.b-list__item-wrap
+    li.b-list__item.b-list__item--plain.b-list__item--linked= text
+      +link(link, link, 'plain')

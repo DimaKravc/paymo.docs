@@ -1,0 +1,386 @@
+extends ../partials/layout
+include ../partials/_blocks/title-h1/title
+include ../partials/_blocks/title-h2/title
+include ../partials/_blocks/title-h3/title
+include ../partials/_blocks/caption/caption
+include ../partials/_blocks/label/label
+include ../partials/_blocks/text/text
+include ../partials/_blocks/link/link
+
+include ../partials/_blocks/api-table/api-table
+include ../partials/_blocks/state-table/state-table
+include ../partials/_blocks/code-snippet/code-snippet
+include ../partials/_blocks/code-snippet/textarea-snippet
+
+include ../partials/_blocks/list/list
+include ../partials/_blocks/command/command
+include ../partials/header
+include ../partials/_blocks/header-mobile/header
+include ../partials/footer
+
+
+block content
+    +headerModile()
+    +header([
+        {
+            name: "Проведение платежей"
+        },
+
+        {
+            name: "Банковские карты"
+        },
+
+        {
+            name: "Проведение платежа",
+            active: true
+        }
+    ])
+    +titleH1("Подключение метода оплаты банковскими картами")
+
+    +titleH2("Как проводится оплата")
+
+
+    +caption("Формирование запроса")(id="cards-connect-formation")
+    +caption("URL")
+    +text("Общение происходит POST запросом, данные пересылаются JSON-ом по адресу")
+    +link("https://paymo.ru/rest/v2/unipayment/", "https://paymo.ru/rest/v2/unipayment/")
+
+
+    +caption("Подпись")
+    +text("В <strong>headers</strong> запроса должна быть сформирована подпись (X-SIGNATURE). Расчет подписи происходит следующим образом:")
+    +list([
+        {
+            name: "Необходимо закодировать тело в формате JSON по ключу key, криптографической функцией хэширования - sha1 (HMAC-SHA1)"
+        },
+        {
+            name: "Результат кодирования закодировать в BASE64"
+        }
+    ], 'round')
+
+
+    +label("Пример подписи")
+    div.b-code-snippet
+        div.b-code-snippet-wrap
+            div.b-code-snippet__row
+                span.b-code-snippet__item
+                    pre
+                        code
+                            | import hmac
+                            | from hashlib import <span class="b-code-snippet__chunk--blue">sha1</span>
+                            | import <span class="b-code-snippet__chunk--blue">base64</span>
+                            | <span></span>
+                            | hashed = hmac.new(<span class="b-code-snippet__chunk--blue">crypto_key</span>.encode(), str(<span class="b-code-snippet__chunk--blue">prep.body</span>).encode(), sha1)
+                            | x-signature = base64.b64encode(hashed.digest()).decode().rsplit(&quot;&quot;)[0]
+                            | headers = {
+                            |         &quot;X-Signature&quot;: x-signature,
+                            |         }
+                div.b-code-snippet__copy
+
+    +label("Параметры подписи")
+    +api-table([
+        {
+            name: "Параметр",
+            is_required: "Обязательный",
+            data_type: "Тип данных",
+            description: "Описание"
+        },
+        {
+            name: "crypto_key",
+            is_required: "да",
+            data_type: "строка",
+            description: "Ключ шифрования merchant point, в Личном кабинете обозначен как ЭЦП (secret key). Его можно сгенерировать в настройках магазина в Личном кабинете (Раздел <span class='b-api-table__col--blue'>Магазины</span> → <span class='b-api-table__col--blue'>Настройки</span> → <span class='b-api-table__col--blue'>Технические настройки</span>)."
+        },
+        {
+            name: "prep.body",
+            is_required: "да",
+            data_type: "строка",
+            description: "Ключ терминала, через который проводится подключение к серверу."
+        }
+    ])
+
+    +caption("Запрос")(id="cards-connect-request")
+    +label("Параметры запроса")
+    +api-table([
+        {
+            name: "Параметр",
+            is_required: "Обязательный",
+            data_type: "Тип данных",
+            description: "Описание"
+        },
+        {
+            name: "api_key*",
+            is_required: "да",
+            data_type: "строка",
+            description: "Идентификатор магазина в системе PAYMO. Указан в разделе Магазины в Личном кабинете"
+        },
+        {
+          name: "amount",
+          is_required: "да",
+          data_type: "строка",
+          description: "Сумма первого платежа в копейках"
+        },
+        {
+            name: "transaction_id",
+            is_required: "да",
+            data_type: "строка",
+            description: "Номер транзакции в магазине. Может быть любым набором символов. Должен быть уникален в пределах выбранного api_key."
+        },
+        {
+            name: "payment_method",
+            is_required: "да",
+            data_type: "строка",
+            description: "Принимает значения “card_visa”, “card_mc” и “card_mir”"
+        },
+        {
+            name: "pan",
+            is_required: "да",
+            data_type: "строка",
+            description: "Номер карты, например “411111111111”"
+        },
+        {
+            name: "expire",
+            is_required: "да",
+            data_type: "строка",
+            description: "Срок действия карты, например “0717”"
+        },
+        {
+            name: "cvc",
+            is_required: "да",
+            data_type: "строка",
+            description: "Код проверки подлинности карты, например “411”"
+        },
+        {
+            name: "rebill",
+            is_required: "нет",
+            data_type: "строка",
+            description: "Параметры рекуррентных платежей"
+        },
+        {
+            name: "signature",
+            is_required: "да",
+            data_type: "строка",
+            description: "Подпись платежной формы, сформированная с использованием «секретного ключа» (ЭЦП (secret_key)) интернет-магазина. ЭЦП (secret_key) можно сгенерировать в настройках магазина в Личном кабинете (Раздел <span class='b-api-table__col--blue'>Магазины</span> → <span class='b-api-table__col--blue'>Настройки</span> → <span class='b-api-table__col--blue'>Технические настройки</span>). Подпись формируется по алгоритму шифрования md5 с использованием параметров amount и crypto_key:<br><br> <span class='b-api-table__col--dark'>md5 (\"amount\"+\"crypto_key\")</span>"
+        }
+    ])
+
+    +label("Параметры ЭЦП")
+    +api-table([
+        {
+            name: "Параметр",
+            is_required: "Обязательный",
+            data_type: "Тип данных",
+            description: "Описание"
+        },
+        {
+            name: "n_amount*",
+            is_required: "да",
+            data_type: "строка",
+            description: "Сумма платежа"
+        },
+        {
+            name: "crypto_key*",
+            is_required: "да",
+            data_type: "строка",
+            description: "Как и предыдущем случае, ключ шифрования merchant point. Его можно сгенерировать в настройках магазина в Личном кабинете (<span class='b-api-table__col--blue'>Магазины</span> → <span class='b-api-table__col--blue'>Настройки</span> → <span class='b-api-table__col--blue'>Технические настройки</span>)."
+        }
+    ])
+
+    +label("Пример ЭЦП")
+    div.b-code-snippet
+        div.b-code-snippet-wrap
+            div.b-code-snippet__row
+                span.b-code-snippet__item
+                    pre
+                        code
+                            |data['signature'] = md5(''.join([str(n_amount),crypto_key]).encode()).hexdigest()
+                div.b-code-snippet__copy
+
+    +label("Параметры рекуррентных платежей")
+    +api-table([
+        {
+            name: "Параметр",
+            is_required: "Обязательный",
+            data_type: "Тип данных",
+            description: "Описание"
+        },
+        {
+            name: "amount",
+            is_required: "да",
+            data_type: "строка",
+            description: "Сумма платежа в копейках"
+        },
+        {
+            name: "period",
+            is_required: "да",
+            data_type: "строка",
+            description: "Периодичность платежа в формате <кол-во месяцев>. <кол-во дней> (например, 3.0 — каждые 3 месяца, 1.0 — каждый месяц, 0.40 — каждые 40 дней)."
+        },
+        {
+            name: "end",
+            is_required: "да",
+            data_type: "строка",
+            description: "Дата окончания ребиллов в формате DD-MM-YYYY (например, 20–12–2015 — после 20-го декабря 2015 ребиллы прекращаются)."
+        },
+        {
+            name: "start_at",
+            is_required: "да",
+            data_type: "строка",
+            description: "Дата первого рекуррентного платежа в формате DD-MM-YYYY (например, 20−10−2016 − 20-е октября 2016); время списания берётся от времени первоначального платежа."
+        }
+    ])
+
+
+    +label("Пример использования")
+    div.b-code-snippet
+        div.b-code-snippet-wrap
+            div.b-code-snippet__row
+                span.b-code-snippet__item
+                    pre
+                        code
+                            |<span class="b-code-snippet__chunk--dark">rebill</span>:{ "<span class="b-code-snippet__chunk--dark">amount</span>": 100, "<span class="b-code-snippet__chunk--dark">period</span>": "1.0", "<span class="b-code-snippet__chunk--dark">end</span>": "31-12-2016", "<span class="b-code-snippet__chunk--dark">start_at</span>": "20-10-2016"}
+                div.b-code-snippet__copy
+
+
+
+
+    +caption("Ответ")(id="cards-connect-response")
+    +label("Параметры ответа")
+    +api-table([
+        {
+            name: "Параметр",
+            is_required: "Обязательный",
+            data_type: "Тип данных",
+            description: "Описание"
+        },
+        {
+            name: "acsUrl",
+            is_required: "да",
+            data_type: "строка",
+            description: "Страница ACS банка-эмитента, на которую необходимо сделать POST-запрос для 3ds авторизации"
+        },
+        {
+            name: "paReq",
+            is_required: "да",
+            data_type: "строка",
+            description: "base64-строка, содержащая параметры запроса (сумма авторизации, ID транзакции, и т.д.)"
+        },
+        {
+            name: "MD",
+            is_required: "да",
+            data_type: "строка",
+            description: "контекст 3DS-транзакции: этот параметр также необходимо передать при выполнении POST-запроса на ACS"
+        }
+    ])
+
+
+
+    +caption("3DS авторизация")(id="cards-connect-3ds")
+    +caption("Запрос")
+    +text("Если в ответе на предыдущий запрос (см. выше) были получены данные acsUrl, MD, paReq и termUrl, то необходимо отправить пользователя на страницу ACS банка-эмитента. Для этого необходимо заполнить (или сгенерировать «на лету») нижеследующую форму, подставив соответствующие значения в value:")
+    div.b-code-snippet
+        div.b-code-snippet-wrap
+            div.b-code-snippet__row
+                span.b-code-snippet__item
+                    pre
+                        code
+                            |&lt;form action=&quot;&lt;<span class="b-code-snippet__chunk--dark">acsUrl</span>&gt;&quot; method=&quot;POST&quot;&gt;
+                            |&lt;input type=&quot;hidden&quot; name=&quot;<span class="b-code-snippet__chunk--dark">MD</span>&quot; value=&quot;&lt;MD&gt;&quot;&gt;
+                            |&lt;input type=&quot;hidden&quot; name=&quot;<span class="b-code-snippet__chunk--dark">PaReq</span>&quot; value=&quot;&lt;paReq&gt;&quot;&gt;
+                            |&lt;input type=&quot;hidden&quot; name=&quot;<span class="b-code-snippet__chunk--dark">TermUrl</span>&quot; value=&quot;&lt;termUrl&gt;&quot;&gt;
+                            |&lt;input type=&quot;submit&quot;&gt;
+                            |&lt;/form&gt;
+                div.b-code-snippet__copy
+    +text("После этого, выполнить автосабмит этой формы.")
+
+
+    +caption("Ответ")
+    +text("Возврат с ACS банка-эмитента представляет собой отправку (со стороны банка) формы методом POST на URL, указанный в параметре TermUrl (см. выше и ниже), со следующими данными:")
+    
+    +label("Параметры ответа")
+    +list([
+        {
+            name: "MD — идентификатор транзакции мерчанта"
+        },
+        {
+            name: "PaRes — Payer Authentication Response"
+        }
+    ])
+
+    +text("После этого необходимо редиректить юзера на страницу платежной системы для ожидания результата операции.")
+
+
+    +caption("Отправка данных о 3DS в эквайер")(id="cards-connect-submit")
+    +caption("URL")
+    +text("Общение происходит POST запросом, данные пересылаются JSON-ом по адресу")
+    +link("https://paymo.ru/rest/v2/unipayment/process3ds/", "https://paymo.ru/rest/v2/unipayment/process3ds/")
+
+    +caption("Подпись")
+    +text("В <strong>headers</strong> запроса должна быть сформирована подпись (X-SIGNATURE). Расчет подписи происходит следующим образом:")
+    +list([
+        {
+            name: "Необходимо закодировать тело в формате JSON по ключу key, криптографической функцией хэширования - sha1 (HMAC-SHA1)"
+        },
+        {
+            name: "Результат кодирования закодировать в BASE64"
+        }
+    ], 'round')
+
+
+
+    +caption("Запрос")
+    +text("В запросе передаем те параметры, которые пришли в ответе от ACS банка-эмитента, а именно:")
+    +list([
+        {
+            name: "MD — идентификатор транзакции мерчанта"
+        },
+        {
+            name: "PaRes — Payer Authentication Response"
+        }
+    ])
+
+
+    +caption("Ответ")
+    +label("Параметры ответа")
+    +api-table([
+        {
+            name: "Параметр",
+            is_required: "Обязательный",
+            data_type: "Тип данных",
+            description: "Описание"
+        },
+        {
+            name: "transaction_id",
+            is_required: "да",
+            data_type: "строка",
+            description: "Номер транзакции в системе магазина. Может быть любым набором символов. Должен быть уникален в пределах выбранного api_key"
+        },
+        {
+            name: "payment_id",
+            is_required: "да",
+            data_type: "строка",
+            description: "Идентификатор платежа в PAYMO"
+        }
+    ])
+
+    +label("Пример ответа")
+    div.b-code-snippet
+        div.b-code-snippet-wrap
+            div.b-code-snippet__row
+                span.b-code-snippet__item
+                    pre
+                        code
+                            | result': {
+                            |         'code': &lt;код ответа&gt;,
+                            |         'auth_code': &lt;код авторизации в случае_успеха&gt;,
+                            |         'amount': &lt;сумма платежа в копейках&gt;,
+                            |         'message': &lt;текст_ответа&gt;,
+                            |     }
+                div.b-code-snippet__copy
+
+
+
+
+    +command("Отмена подписки на рекуррентные платежи")
+    +footer()
+    +textareaSnippet()
+

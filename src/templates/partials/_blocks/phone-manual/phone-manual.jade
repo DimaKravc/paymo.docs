@@ -1,0 +1,13 @@
+
+mixin phone-manual(items)
+  div.b-phone-manual
+    ul.b-list
+
+      each item, i in items
+        div.b-list__item-wrap.b-list__item-wrap--inline
+          span.b-list__item-round= i + 1
+          li.b-list__item.b-list__item--plain.b-list__item--uppercase.b-list__item--va-top=item.name
+          if (i == 0)
+            img.b-phone-manual__image(src="img/phone-1.png")
+          else
+            img.b-phone-manual__image(src="img/phone-2.png")

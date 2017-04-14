@@ -1,0 +1,31 @@
+.b-link {
+  max-width: 654px;
+  line-height: 0;
+}
+
+.b-link__elem {
+  @include font-size(16px, $LatoBold, $blue, 1.25);
+}
+
+
+/* modificators */
+.b-link--indentation {
+  margin: 8px 0 0px 32px;
+}
+
+.b-link__elem--plain {
+  @include font-size(13px, $LatoRegular, $blue, 1.25);
+}
+
+/* media */
+@media (max-width: 800px) {
+  .b-link--indentation {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 414px) {
+  .b-link__elem {
+    @include font-size(11px, $LatoBold, $blue, 1.25);
+  }
+}

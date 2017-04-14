@@ -1,0 +1,66 @@
+.b-code-snippet {
+  max-width: 688px;
+  width: 100%;
+  overflow: hidden;
+  overflow-x: auto;
+  background-color: $snippetBG;
+  border-radius: 8px;
+}
+
+.b-code-snippet-wrap {
+  width: 688px;
+  padding: 24px;
+}
+
+.b-code-snippet__row {
+  position: relative;
+  font-size: 0;
+}
+
+.b-code-snippet__item {
+  @include font-size(13px, $LatoRegular, $dark, 1.67);
+  letter-spacing: 0.8px;
+}
+
+.b-code-snippet__copy {
+  position: absolute;
+  background: url(../svg/copy-code.svg) no-repeat;
+  background-position: 0 0;
+  background-size: 16px;
+  cursor: pointer;
+
+  right: -12px;
+  top: -12px;
+
+  height: 16px;
+  width: 16px;
+
+  transition: all .13s ease-in;
+}
+
+/* modificators */
+
+
+.b-code-snippet__col--secondary {
+  color: $tableSecondary;
+}
+
+.b-code-snippet__chunk--blue {
+  font-weight: bold;
+  color: $darkBlue;
+}
+
+.b-code-snippet__chunk--dark {
+  font-weight: bold;
+}
+
+.b-code-snippet--indentation {
+  margin: 8px 0 0px 0;
+}
+
+// media
+@media (max-width: 800px) {
+  .b-code-snippet__copy {
+    display: none;
+  }
+}

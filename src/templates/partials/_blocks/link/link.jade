@@ -1,0 +1,8 @@
+mixin link(name, href, plain)
+    - plain = typeof plain != "undefined" ? plain : ''
+
+    if plain != ''
+      a(href=href).b-link__elem.b-link__elem--plain=name
+    else
+      div.b-link.b-link--indentation
+        a(href=href).b-link__elem=name

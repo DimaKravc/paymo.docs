@@ -1,0 +1,141 @@
+extends ../partials/layout
+include ../partials/_blocks/title-h1/title
+include ../partials/_blocks/title-h2/title
+include ../partials/_blocks/title-h3/title
+include ../partials/_blocks/caption/caption
+include ../partials/_blocks/label/label
+include ../partials/_blocks/text/text
+include ../partials/_blocks/link/link
+
+include ../partials/_blocks/api-table/api-table
+include ../partials/_blocks/state-table/state-table
+include ../partials/_blocks/code-snippet/code-snippet
+include ../partials/_blocks/code-snippet/textarea-snippet
+
+include ../partials/_blocks/list/list
+include ../partials/_blocks/command/command
+include ../partials/header
+include ../partials/_blocks/header-mobile/header
+include ../partials/footer
+
+
+block content
+    +headerModile()
+    +header([
+        {
+            name: "Проведение платежей"
+        },
+
+        {
+            name: "Банковские карты"
+        },
+
+        {
+            name: "Отмена подписки на рекуррентные платежи",
+            active: true
+        }
+    ])
+    +titleH1("Подключение метода оплаты банковскими картами")
+
+    +titleH2("Отмена подписки на рекуррентные платежи")
+
+    +caption("URL")
+    +text("Общение происходит POST запросом, данные пересылаются JSON-ом по адресу")
+    +link("https://paymo.ru/rest/v2/unipayment/", "https://paymo.ru/rest/v2/unipayment/")
+
+
+    +caption("Подпись")
+    +text("В <strong>headers</strong> запроса должна быть сформирована подпись (X-SIGNATURE). Расчет подписи происходит следующим образом:")
+    +list([
+        {
+            name: "Необходимо закодировать тело в формате JSON по ключу key, криптографической функцией хэширования - sha1 (HMAC-SHA1)"
+        },
+        {
+            name: "Результат кодирования закодировать в BASE64"
+        }
+    ], 'round')
+
+
+    +caption("Запрос")(id="cards-cancel-request")
+    +label("Параметры запроса")
+    +api-table([
+        {
+            name: "Параметр",
+            is_required: "Обязательный",
+            data_type: "Тип данных",
+            description: "Описание"
+        },
+        {
+            name: "api_key*",
+            is_required: "да",
+            data_type: "строка",
+            description: "Идентификатор магазина в системе PAYMO. Указан в разделе <span class='b-api-table__col--blue'>Магазины</span> в Личном кабинете"
+        },
+        {
+            name: "transaction_id",
+            is_required: "да",
+            data_type: "строка",
+            description: "Номер транзакции в системе магазина. Может быть любым набором символов. Должен быть уникален в пределах выбранного api_key."
+        },
+        {
+            name: "amount",
+            is_required: "да",
+            data_type: "строка",
+            description: "Сумма первого платежа в копейках"
+        },
+        {
+            name: "signature",
+            is_required: "да",
+            data_type: "строка",
+            description: "Подпись платежной формы, сформированная с использованием «секретного ключа» (ЭЦП (secret_key)) интернет-магазина. ЭЦП (secret_key) можно сгенерировать в настройках магазина в Личном кабинете (Раздел <span class='b-api-table__col--blue'>Магазины</span> → <span class='b-api-table__col--blue'>Настройки</span> → <span class='b-api-table__col--blue'>Технические настройки</span>). Подпись формируется по алгоритму шифрования md5 с использованием параметров amount и crypto_key: <br><br> <span class='b-code-snippet__chunk--dark'>md5 (\"amount\"+\"crypto_key\")</span>"
+        }
+    ])
+    
+    +label("Пример на python:")
+    div.b-code-snippet
+        div.b-code-snippet-wrap
+            div.b-code-snippet__row
+                span.b-code-snippet__item
+                    pre
+                        code
+                            | {&quot;api_key&quot;: &quot;3fd47e05-8e7n-4e5-78-8fbb-9af08926d995&quot;, &quot;transaction_id&quot;: &quot;198&quot;, &quot;amount&quot;: 100,
+                            | &quot;signature&quot;: &quot;oi3rf3ijfioejfoeirjf&quot;}
+                div.b-code-snippet__copy
+    
+
+    +caption("Ответ")(id="cards-cancel-response")
+    +label("Параметры ответа:")
+    +api-table([
+        {
+            name: "Параметр",
+            is_required: "Обязательный",
+            data_type: "Тип данных",
+            description: "Описание"
+        },
+        {
+            name: "result",
+            is_required: "да",
+            data_type: "строка",
+            description: "Результат запроса"
+        },
+        {
+            name: "message",
+            is_required: "да",
+            data_type: "строка",
+            description: "Ответ"
+        }
+    ])
+    
+    +label("Пример ответа:")
+    div.b-code-snippet
+        div.b-code-snippet-wrap
+            div.b-code-snippet__row
+                span.b-code-snippet__item
+                    pre
+                        code
+                            | {<span class='b-code-snippet__chunk--dark'>&quot;result&quot;</span>: true, <span class='b-code-snippet__chunk--dark'>&quot;message&quot;</span>: &quot;Rebill is stopped&quot;}
+                div.b-code-snippet__copy
+    
+    +textareaSnippet()
+    +command("Получение статуса операции")
+    +footer()

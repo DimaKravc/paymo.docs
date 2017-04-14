@@ -1,0 +1,8 @@
+mixin breadcrumbs(items)
+    ul.b-breadcrumbs
+        each item, i in items
+            li.b-breadcrumbs__item
+                if item.active == true
+                    a.b-breadcrumbs__item-link.b-breadcrumbs__item-link--indentation.b-breadcrumbs__item-link--active(href="#")=item.name
+                else
+                    a.b-breadcrumbs__item-link.b-breadcrumbs__item-link--indentation(href="#")=item.name

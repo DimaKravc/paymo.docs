@@ -1,0 +1,17 @@
+mixin api-table(items)
+
+  div.b-api-table
+      div.b-api-table-wrap
+        each item, i in items
+          div.b-api-table__row
+            if (i === 0)
+                div.b-api-table__col.b-api-table__col--secondary.b-api-table__col--name= item.name
+                div.b-api-table__col.b-api-table__col--secondary.b-api-table__col--is_required= item.is_required
+                div.b-api-table__col.b-api-table__col--secondary.b-api-table__col--data_type= item.data_type
+                div.b-api-table__col.b-api-table__col--secondary.b-api-table__col--description!= item.description
+            else
+                div.b-api-table__col.b-api-table__col--name= item.name
+                div.b-api-table__col.b-api-table__col--is_required= item.is_required
+                div.b-api-table__col.b-api-table__col--data_type= item.data_type
+                div.b-api-table__col.b-api-table__col--description!= item.description
+

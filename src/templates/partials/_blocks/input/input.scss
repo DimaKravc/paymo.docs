@@ -1,0 +1,23 @@
+.b-input {
+  width: 100%;
+  max-width: 654px;
+}
+
+.b-input__field {
+  width: 100%;
+  padding: 0 21px 14px 21px;
+  @include font-size(13px, $LatoRegular, $coolGrey, 1.2);
+  border: 0;
+  border-bottom: 2px solid $paleBlue;
+  background: none;
+  outline: none;
+  -webkit-appearance: button; /* for input */
+  -webkit-user-select: none; /* for button */
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* modificators */
+.b-input--indentation {
+  padding-bottom: 24px;
+}

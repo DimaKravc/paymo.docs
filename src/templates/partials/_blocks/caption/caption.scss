@@ -1,0 +1,27 @@
+.b-caption {
+  max-width: 450px;
+}
+
+.b-caption__elem {
+  @include font-size(16px, $LatoBold, $dark);
+}
+
+/* modificators */
+.b-caption--indentation {
+  margin: 24px 0 12px 32px;
+}
+// /* if this caption after another title or caption */
+// .b-caption--subcaption-identation {
+//   margin: 24px 0 12px 0;
+// }
+
+/* media */
+@media (max-width: 800px) {
+  .b-caption--indentation {
+    margin-left: 0;
+  }
+
+  .b-caption__elem {
+
+  }
+}

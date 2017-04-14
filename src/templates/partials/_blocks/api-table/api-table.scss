@@ -1,0 +1,147 @@
+.b-api-table {
+  max-width: 688px;
+  width: 100%;
+  overflow: hidden;
+  overflow-x: auto;
+  background-color: $lightBlue;
+}
+
+.b-api-table-wrap {
+  width: 688px;
+  padding: 24px;
+}
+
+.b-api-table__row {
+  padding: 14px 24px 12px 23px;
+  font-size: 0;
+}
+
+.b-api-table__row:not(:last-child) {
+  border-bottom: 1px solid #e6e9f1;
+}
+
+// columns
+.b-api-table__col {
+  @include font-size(13px, $LatoRegular, $dark, 1.54);
+  display: inline-block;
+  vertical-align: top;
+}
+
+.b-api-table__col:not(.b-api-table__col--secondary):first-child {
+  @include font-size(13px, $LatoBold, $blue, 1.54);
+}
+
+.b-api-table__col:not(:last-child) {
+  margin-right: 16px;
+}
+
+
+
+/* modificators */
+
+.b-api-table__col--highlighted {
+  font-family: "LatoBold";
+}
+
+.b-api-table__col--blue {
+  @include font-size(13px, $LatoBold, $blue, 1.54);
+}
+
+.b-api-table__col--dark {
+  @include font-size(13px, $LatoBold, $dark, 1.54);
+}
+
+.b-api-table__col--italic {
+  @include font-size(11px, $LatoRegular, $dark, 1.54);
+  font-style: italic;
+}
+
+.b-api-table__col--code {
+  letter-spacing: 0.6px;
+  @include font-size(9px, $PTRegular, $dark, 15px);
+}
+
+.b-api-table__col--name {
+  width: 128px;
+}
+
+.b-api-table__col--is_required {
+  width: 89px;
+}
+
+.b-api-table__col--data_type {
+  width: 88px;
+}
+
+.b-api-table__col--description {
+  width: 240px;
+}
+
+.b-api-table__col--secondary {
+  color: #78909c;
+}
+
+.b-api-table--indentation {
+  margin: 8px 0 0px 0;
+}
+
+// media
+@media (max-width: 1200px) {
+  .b-api-table-wrap {
+    width: auto;
+  }
+
+  .b-api-table__row {
+    padding: 14px 0 12px 0;
+  }
+
+  .b-api-table__col:not(:last-child) {
+    margin-right: 0;
+  }
+
+  .b-api-table__col--name, .b-api-table__col--is_required, .b-api-table__col--data_type, .b-api-table__col--description {
+    width: 25%;
+  }
+
+  .b-api-table__col {
+    @include font-size(10px, $LatoRegular, $dark, 1.54);
+  }
+
+  .b-api-table__col:not(.b-api-table__col--secondary):first-child {
+    @include font-size(10px, $LatoBold, $blue, 1.54);
+  }
+
+  .b-api-table__col--blue {
+    @include font-size(10px, $LatoBold, $blue, 1.54);
+  }
+
+  .b-api-table__col--dark {
+    @include font-size(10px, $LatoBold, $dark, 1.54);
+  }
+
+  .b-api-table__col--italic {
+    @include font-size(9px, $LatoRegular, $dark, 1.54);
+  }
+}
+
+@media (max-width: 475px) {
+  .b-api-table-wrap {
+    width: 688px;
+  }
+
+  .b-api-table__col--name {
+    width: 128px;
+  }
+
+  .b-api-table__col--is_required {
+    width: 89px;
+  }
+
+  .b-api-table__col--data_type {
+    width: 88px;
+  }
+
+  .b-api-table__col--description {
+    width: 240px;
+  }
+}

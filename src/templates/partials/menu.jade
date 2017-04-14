@@ -1,0 +1,75 @@
+mixin menu()
+    div.b-menu
+        div.menu-close.menu-close--indentation
+            img.menu-close__image.js__close(src="svg/menu-close.svg")
+        a.menu__logo.menu__logo--indentation(href="/")
+            img(src="svg/paymo.svg")
+        
+        div.navigation.navigation--indentation
+            ul.navigation__first-wrap
+                li.navigation__first
+                    a(href="#").navigation__first-link Проведение платежей
+                    ul.navigation__second-wrap
+                        li.navigation__second
+                            a(href="#").navigation__second-link.js__pay24 PAY24
+                            ul(style="display: none" class="navigation__third-wrap")
+                                li.navigation__third
+                                    a(href="qr-get-started.html").navigation__third-link Описание
+                                li.navigation__third
+                                    a(href="qr-get-started.html#qr-get-started-connect").navigation__third-link Подключение
+                                li.navigation__third
+                                    a(href="qr-connect.html").navigation__third-link Проведение платежа
+                                    ul(class="navigation__forth-wrap")
+                                        li.navigation__forth
+                                            a(href="qr-connect.html#qr-connect-request").navigation__forth-link Тело запроса
+                                        li.navigation__forth
+                                            a(href="qr-connect.html#qr-connect-response").navigation__forth-link Ответ
+
+                                li.navigation__third
+                                    a(href="qr-status.html").navigation__third-link Возможности платежного метода
+                                    ul.navigation__forth-wrap
+                                        li.navigation__forth
+                                            a(href="qr-status.html#qr-status-signature" class="navigation__forth-link") Подпись
+                                        li.navigation__forth
+                                            a(href="qr-status.html#qr-status-body").navigation__forth-link Тело запроса
+                                        li.navigation__forth
+                                            a(href="qr-status.html#qr-status-example").navigation__forth-link Пример запроса
+                                        li.navigation__forth
+                                            a(href="qr-status.html#qr-status-response").navigation__forth-link Ответ
+                        li.navigation__second
+                            a(href="#").navigation__second-link.js__bank БАНКОВСКИЕ КАРТЫ
+                            ul(style="display: none").navigation__third-wrap
+                                li.navigation__third
+                                    a(href="cards-get-started.html").navigation__third-link Описание
+                                li.navigation__third
+                                    a(href="cards-get-started.html").navigation__third-link Подключение
+                                li.navigation__third
+                                    a(href="cards-connect.html").navigation__third-link Проведение платежа
+                        
+                                    ul.navigation__forth-wrap
+                                        li(class="navigation__forth")
+                                            a(href="cards-connect.html#cards-connect-formation").navigation__forth-link Формирование запроса
+                                        li(class="navigation__forth")
+                                            a(href="cards-connect.html#cards-connect-request").navigation__forth-link Запрос
+                                        li(class="navigation__forth")
+                                            a(href="cards-connect.html#cards-connect-response").navigation__forth-link Ответ
+                                        li(class="navigation__forth")
+                                            a(href="cards-connect.html#cards-connect-3ds").navigation__forth-link 3DS авторизация
+                                        li(class="navigation__forth")
+                                            a(href="cards-connect.html#cards-connect-submit").navigation__forth-link Отправка данных о 3DS в эквайер
+
+                                li.navigation__third
+                                    a(href="cards-cancel.html").navigation__third-link Отмена подписки
+                                    ul.navigation__forth-wrap
+                                        li.navigation__forth
+                                            a(href="cards-cancel.html#cards-cancel-request").navigation__forth-link Запрос
+                                        li.navigation__forth
+                                            a(href="cards-cancel.html#cards-cancel-response").navigation__forth-link Ответ
+
+                                li.navigation__third
+                                    a(href="cards-status.html").navigation__third-link Получение статуса
+                                    ul.navigation__forth-wrap
+                                        li.navigation__forth
+                                            a(href="cards-status.html#cards-status-request").navigation__forth-link Запрос
+                                        li.navigation__forth
+                                            a(href="cards-status.html#cards-status-response").navigation__forth-link Ответ

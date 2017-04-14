@@ -1,0 +1,35 @@
+.b-command {
+  max-width: 654px;
+  padding-bottom: 32px;
+  border-bottom: 2px solid $paleBlue;
+}
+
+.b-command__link {
+  text-decoration: none;
+  @include font-size(16px, $LatoBold, $blue, 1.2);
+}
+
+.b-command__link::after {
+  content: '';
+  background: transparent url(../svg/arrow.svg) no-repeat;
+  background-position: 0 -1px;
+  background-size: contain;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 12px;
+  height: 16px;
+  width: 16px;
+}
+
+/* modificators */
+.b-command--indentation {
+  margin: 96px 0 32px 32px;
+}
+
+/* media */
+@media (max-width: 800px) {
+  .b-command--indentation {
+    margin-left: 0;
+  }
+}
+

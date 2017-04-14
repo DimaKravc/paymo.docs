@@ -1,0 +1,161 @@
+extends ../partials/layout
+include ../partials/_blocks/title-h1/title
+include ../partials/_blocks/title-h2/title
+include ../partials/_blocks/title-h3/title
+include ../partials/_blocks/caption/caption
+include ../partials/_blocks/label/label
+include ../partials/_blocks/text/text
+include ../partials/_blocks/link/link
+
+include ../partials/_blocks/api-table/api-table
+include ../partials/_blocks/state-table/state-table
+include ../partials/_blocks/code-snippet/code-snippet
+include ../partials/_blocks/code-snippet/textarea-snippet
+
+include ../partials/_blocks/list/list
+include ../partials/_blocks/command/command
+include ../partials/header
+include ../partials/_blocks/header-mobile/header
+include ../partials/footer
+
+
+block content
+    +headerModile()
+    +header([
+        {
+            name: "Проведение платежей"
+        },
+
+        {
+            name: "Банковские карты"
+        },
+
+        {
+            name: "Получение статуса операции",
+            active: true
+        }
+    ])
+    +titleH1("Подключение метода оплаты банковскими картами")
+
+    +titleH2("Получение статуса операции")
+
+    +caption("URL")
+    +text("Общение происходит POST запросом, данные пересылаются JSON-ом по адресу")
+    +link("https://paymo.ru/rest/v2/unipayment/check_status/", "https://paymo.ru/rest/v2/unipayment/check_status/")
+
+
+    +caption("Подпись")
+    +text("В headers запроса должна быть сформирована подпись (X-SIGNATURE). Расчет подписи происходит следующим образом:")
+    +list([
+        {
+            name: "Необходимо закодировать тело в формате JSON по ключу key, криптографической функцией хэширования - sha1 (HMAC-SHA1)"
+        },
+        {
+            name: "Результат кодирования закодировать в BASE64"
+        }
+    ], 'round')
+
+
+
+    +caption("Запрос")(id="cards-status-request")
+    +label("Параметры запроса")
+    +api-table([
+        {
+            name: "Параметр",
+            is_required: "Обязательный",
+            data_type: "Тип данных",
+            description: "Описание"
+        },
+        {
+            name: "transaction_id",
+            is_required: "true",
+            data_type: "строка",
+            description: "Номер транзакции в магазине. Может быть любым набором символов. Должен быть уникален в пределах выбранного api_key."
+        },
+        {
+            name: "api_key",
+            is_required: "true",
+            data_type: "строка",
+            description: "Идентификатор магазина в системе PAYMO. Указан в разделе <span class='b-api-table__col--blue'>Магазины</span> в Личном кабинете."
+        },
+        {
+            name: "payment_method",
+            is_required: "true",
+            data_type: "строка",
+            description: "Метод оплаты"
+        }
+    ])
+
+
+
+
+    +caption("Ответ")(id="cards-status-response")
+    +label("Параметры ответа")
+    +api-table([
+        {
+            name: "Параметр",
+            is_required: "Обязательный",
+            data_type: "Тип данных",
+            description: "Описание"
+        },
+        {
+            name: "result",
+            is_required: "да",
+            data_type: "строка",
+            description: "Результат запроса"
+        },
+        {
+            name: "state",
+            is_required: "да",
+            data_type: "строка",
+            description: "Статус операции"
+        }
+    ])
+
+
+    +label("Пример ответа")
+    div.b-code-snippet
+        div.b-code-snippet-wrap
+            div.b-code-snippet__row
+                span.b-code-snippet__item
+                    pre
+                        code
+                            | {<span class='b-code-snippet__chunk--dark'>&quot;result&quot;</span>: true, <span class='b-code-snippet__chunk--dark'>&quot;state&quot;</span>: &quot;deposited&quot;}
+                div.b-code-snippet__copy
+
+
+    +label("Возможные статусы ответа")
+    +state-table([
+        {
+            name: "PROCESSING",
+            description: "Платеж в обработке"
+        },
+        {
+            name: "DEPOSITED",
+            description: "Транзакция совершена успешно"
+        },
+        {
+            name: "DECLINED",
+            description: "Транзакция неуспешна"
+        },
+        {
+            name: "WAIT_EXTERNAL",
+            description: "Ожидается подтверждение от внешней платежной системы."
+        },
+        {
+            name: "REFUNDED",
+            description: "Осуществлен полный возврат денежных средств."
+        },
+        {
+            name: "APPROVED",
+            description: "Денежные средства захолдированы, ожидается подтверждение операции."
+        },
+        {
+            name: "PART_REFUNDED",
+            description: "Произведен частичный возврат денежных средств."
+        }
+    ])
+
+    +textareaSnippet()
+    +command("Отмена подписки на рекуррентные платежи")
+    +footer()

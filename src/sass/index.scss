@@ -1,0 +1,34 @@
+@import "reset";
+@import "fonts";
+@import "variables";
+@import "mixins";
+@import "extend";
+@import "global";
+
+@import "partials/header";
+@import "../templates/partials/_blocks/header-mobile/header";
+@import "partials/menu";
+
+/* text blocks */
+@import "../templates/partials/_blocks/title-h1/title";
+@import "../templates/partials/_blocks/title-h2/title";
+@import "../templates/partials/_blocks/title-h3/title";
+@import "../templates/partials/_blocks/text/text";
+@import "../templates/partials/_blocks/link/link";
+@import "../templates/partials/_blocks/caption/caption";
+@import "../templates/partials/_blocks/label/label";
+
+@import "../templates/partials/_blocks/api-table/api-table";
+@import "../templates/partials/_blocks/state-table/state-table";
+@import "../templates/partials/_blocks/code-snippet/code-snippet";
+@import "../templates/partials/_blocks/phone-manual/phone-manual";
+
+/* text blocks */
+@import "../templates/partials/_blocks/input/input";
+@import "../templates/partials/_blocks/list/list";
+@import "../templates/partials/_blocks/command/command";
+@import "../templates/partials/_blocks/breadcrumbs/bread";
+
+@import "partials/footer";
+
+@import "styles@2.0";

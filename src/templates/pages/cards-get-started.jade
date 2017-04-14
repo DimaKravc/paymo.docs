@@ -1,0 +1,56 @@
+extends ../partials/layout
+include ../partials/_blocks/title-h1/title
+include ../partials/_blocks/title-h2/title
+include ../partials/_blocks/title-h3/title
+include ../partials/_blocks/text/text
+include ../partials/_blocks/list/list
+include ../partials/_blocks/command/command
+include ../partials/_blocks/code-snippet/textarea-snippet
+include ../partials/header
+include ../partials/_blocks/header-mobile/header
+include ../partials/footer
+
+
+block content
+    +headerModile()
+    +header([
+        {
+            name: "Проведение платежей"
+        },
+
+        {
+            name: "Банковские карты"
+        },
+
+        {
+            name: "Описание",
+            active: true
+        }
+    ])
+    +titleH1("Подключение метода оплаты банковскими картами")
+
+    +titleH2("Возможности платежного метода")
+    +text("Метод позволяет пользователям оплачивать товары/услуги с любой карты MasterCard, VISA, МИР. Возможна оплата по вендерам для осуществления платежей по свободным реквизитам и операций card-to-account. ")
+    +text("Предлагаем широкие возможности для интеграции в любой платежный виджет.")
+
+    +titleH2("Подключение")
+    +text("Для подключения данного метода необходимо зарегистрироваться в нашей системе, нажав на кнопку <span class='b-api-table__col--blue'>Подключиться</span> на сайте www.paymo.ru.")
+    +text("После регистрации нужно заполнить все поля в окне <span class='b-api-table__col--blue'>Добавление нового магазина</span>, таким образом в системе PAYMО будет создан уникальный merchant point. ")
+    +text("После этого нужно заполнить раздел <span class='b-api-table__col--blue'>Информация о компании</span>.")
+
+    +titleH2("Преимущества решения")
+    +list([
+        {
+            name: "Конверсия успешных оплат — более 92 % (средний показатель по системе)"
+        },
+        {
+            name: "Технология оплаты соответствует стандартам PCI DSS (Payment Card Industry Data Security Standard) 3.1 level1."
+        },
+        {
+            name: "Собственные антифрод-решения и уникальная система токенизации для защиты от мошенничества."
+        }
+    ], 'star')
+
+    +command("Как проводится оплата")
+
+    +footer()
